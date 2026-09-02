@@ -1,5 +1,5 @@
 import React from "react";
-import "./StatCards.css";
+import "./Statcards.css";
 import { Users, Package, TrendingUp, Clock, ArrowUp, ArrowDown } from "lucide-react";
 
 const stats = [

@@ -1,5 +1,5 @@
 import React from "react";
-import "./DealsTable.css";
+import "./Dealstable.css";
 
 const deals = [
   {
