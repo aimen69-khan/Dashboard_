@@ -1,0 +1,12 @@
+.ds-app {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+.ds-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
