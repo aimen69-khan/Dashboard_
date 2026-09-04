@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PersonList.css";
-import { Bookmark, Trash2, ChevronLeft, ChevronRight, ChevronDown, BadgeCheck } from "lucide-react";
+import {
+  Bookmark,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  BadgeCheck,
+  Plus,
+  X,
+} from "lucide-react";
 
 const initialUsers = [
   {
@@ -122,15 +131,40 @@ const statusClass = {
 };
 
 const SAVED_KEY = "dashstack_saved_users";
+const ADDED_KEY = "dashstack_added_users";
+
+const emptyForm = {
+  name: "",
+  email: "",
+  country: "",
+  friends: "",
+  followers: "",
+  status: "Active",
+};
 
 export default function List() {
+  const [addedUsers, setAddedUsers] = useState([]);
   const [users, setUsers] = useState(initialUsers);
   const [page, setPage] = useState(1);
   const [toast, setToast] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState(emptyForm);
   const totalPages = 10;
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem(ADDED_KEY)) || [];
+    setAddedUsers(stored);
+    setUsers([...stored, ...initialUsers]);
+  }, []);
 
   const handleDelete = (id) => {
     setUsers((prev) => prev.filter((user) => user.id !== id));
+
+    const stillAdded = addedUsers.filter((user) => user.id !== id);
+    if (stillAdded.length !== addedUsers.length) {
+      setAddedUsers(stillAdded);
+      localStorage.setItem(ADDED_KEY, JSON.stringify(stillAdded));
+    }
   };
 
   const handleSave = (user) => {
@@ -148,8 +182,50 @@ export default function List() {
     setTimeout(() => setToast(null), 2000);
   };
 
+  const handleFormChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddSubmit = (e) => {
+    e.preventDefault();
+
+    if (!form.name.trim() || !form.email.trim()) {
+      return;
+    }
+
+    const newUser = {
+      id: `new-${Date.now()}`,
+      name: form.name.trim(),
+      verified: false,
+      email: form.email.trim(),
+      avatar: `https://i.pravatar.cc/64?u=${Date.now()}`,
+      country: form.country.trim() || "Unknown",
+      friends: Number(form.friends) || 0,
+      followers: Number(form.followers) || 0,
+      status: form.status,
+    };
+
+    const updatedAdded = [newUser, ...addedUsers];
+    setAddedUsers(updatedAdded);
+    localStorage.setItem(ADDED_KEY, JSON.stringify(updatedAdded));
+
+    setUsers((prev) => [newUser, ...prev]);
+
+    setForm(emptyForm);
+    setShowModal(false);
+    setToast(`${newUser.name} added`);
+    setTimeout(() => setToast(null), 2000);
+  };
+
   return (
     <div className="ls-page">
+      <div className="ls-toolbar">
+        <button className="ls-add-btn" onClick={() => setShowModal(true)}>
+          <Plus size={16} />
+          Add New
+        </button>
+      </div>
+
       <div className="ls-card">
         <table className="ls-table">
           <thead>
@@ -164,9 +240,9 @@ export default function List() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <tr key={user.id}>
-                <td className="ls-index">{user.id}</td>
+                <td className="ls-index">{String(index + 1).padStart(2, "0")}</td>
                 <td>
                   <div className="ls-profile">
                     <img src={user.avatar} alt={user.name} />
@@ -271,6 +347,102 @@ export default function List() {
           <a href="#">Figma Design System</a>
         </div>
       </div>
+
+      {showModal && (
+        <div className="ls-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="ls-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="ls-modal-header">
+              <div className="ls-modal-title">Add New User</div>
+              <button className="ls-modal-close" onClick={() => setShowModal(false)}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <form className="ls-modal-form" onSubmit={handleAddSubmit}>
+              <label className="ls-field">
+                <span>Name</span>
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => handleFormChange("name", e.target.value)}
+                  placeholder="e.g. Jordan Lee"
+                  required
+                />
+              </label>
+
+              <label className="ls-field">
+                <span>Email</span>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => handleFormChange("email", e.target.value)}
+                  placeholder="e.g. jordan@company.com"
+                  required
+                />
+              </label>
+
+              <label className="ls-field">
+                <span>Country</span>
+                <input
+                  type="text"
+                  value={form.country}
+                  onChange={(e) => handleFormChange("country", e.target.value)}
+                  placeholder="e.g. New Lisbon"
+                />
+              </label>
+
+              <div className="ls-field-row">
+                <label className="ls-field">
+                  <span>Friends</span>
+                  <input
+                    type="number"
+                    value={form.friends}
+                    onChange={(e) => handleFormChange("friends", e.target.value)}
+                    placeholder="0"
+                    min="0"
+                  />
+                </label>
+
+                <label className="ls-field">
+                  <span>Followers</span>
+                  <input
+                    type="number"
+                    value={form.followers}
+                    onChange={(e) => handleFormChange("followers", e.target.value)}
+                    placeholder="0"
+                    min="0"
+                  />
+                </label>
+              </div>
+
+              <label className="ls-field">
+                <span>Status</span>
+                <select
+                  value={form.status}
+                  onChange={(e) => handleFormChange("status", e.target.value)}
+                >
+                  <option value="Active">Active</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </label>
+
+              <div className="ls-modal-actions">
+                <button
+                  type="button"
+                  className="ls-modal-cancel"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="ls-modal-submit">
+                  Add User
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {toast && <div className="ls-toast">{toast}</div>}
     </div>
