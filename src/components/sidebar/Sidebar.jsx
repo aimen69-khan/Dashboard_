@@ -12,7 +12,7 @@ const mainNav = [
 ];
 
 const pagesNav = [
-  { label: "Order", path: "/order/:id" },
+  { label: "Pricing"},
   { label: "List", path: "/list" },
   { label: "Saved", path: "/saved" },
   { label: "Contact" },
