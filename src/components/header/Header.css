@@ -5,6 +5,7 @@
   padding: 18px 28px;
   background: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  gap: 16px;
 }
 
 .ds-search {
@@ -35,6 +36,7 @@
   display: flex;
   align-items: center;
   gap: 22px;
+  flex-shrink: 0;
 }
 
 .ds-icon-btn {
@@ -49,6 +51,7 @@
   justify-content: center;
   color: #4b5164;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .ds-badge {
@@ -72,6 +75,7 @@
   color: #4b5164;
   cursor: pointer;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .ds-flag {
@@ -91,15 +95,84 @@
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .ds-profile-name {
   font-size: 13.5px;
   font-weight: 600;
   color: #1a1d29;
+  white-space: nowrap;
 }
 
 .ds-profile-role {
   font-size: 11.5px;
   color: #9098a8;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .ds-search {
+    width: 220px;
+  }
+
+  .ds-header-right {
+    gap: 14px;
+  }
+
+  .ds-lang span:not(.ds-flag) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ds-header {
+    padding: 14px 16px;
+  }
+
+  .ds-search {
+    width: 160px;
+    padding: 8px 12px;
+  }
+
+  .ds-profile-text {
+    display: none;
+  }
+
+  .ds-profile {
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ds-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ds-search {
+    order: 3;
+    width: 100%;
+  }
+
+  .ds-header-right {
+    order: 2;
+    margin-left: auto;
+    gap: 10px;
+  }
+
+  .ds-lang {
+    display: none;
+  }
+
+  .ds-icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ds-profile img {
+    width: 32px;
+    height: 32px;
+  }
 }

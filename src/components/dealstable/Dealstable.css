@@ -5,6 +5,7 @@
   margin: 20px 28px 28px 28px;
   box-shadow: 0 2px 10px rgba(20, 20, 43, 0.04);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: auto;
 }
 
 .ds-deals-header {
@@ -16,6 +17,7 @@
 
 .ds-deals-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
 }
 
@@ -60,4 +62,40 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .ds-deals-card {
+    margin: 16px 16px 20px 16px;
+    padding: 18px 16px 8px 16px;
+  }
+
+  .ds-deals-table thead th,
+  .ds-deals-table tbody td {
+    padding: 10px;
+    font-size: 12.5px;
+  }
+
+  .ds-product-cell img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ds-deals-card {
+    margin: 12px 12px 16px 12px;
+    border-radius: 12px;
+  }
+
+  .ds-deals-header {
+    margin-bottom: 8px;
+  }
+
+  .ds-status-pill {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
 }

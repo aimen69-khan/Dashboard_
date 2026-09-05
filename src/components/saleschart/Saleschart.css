@@ -42,3 +42,34 @@
   border-radius: 6px;
   white-space: nowrap;
 }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .ds-chart-card {
+    margin: 16px 16px 0 16px;
+    padding: 18px 16px;
+  }
+
+  .ds-chart-title {
+    font-size: 14.5px;
+  }
+
+  .ds-chart-filter {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ds-chart-card {
+    margin: 12px 12px 0 12px;
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .ds-chart-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
