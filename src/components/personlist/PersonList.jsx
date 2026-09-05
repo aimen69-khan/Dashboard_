@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PersonList.css";
 import {
   Bookmark,
@@ -143,6 +144,7 @@ const emptyForm = {
 };
 
 export default function List() {
+  const navigate = useNavigate();
   const [addedUsers, setAddedUsers] = useState([]);
   const [users, setUsers] = useState(initialUsers);
   const [page, setPage] = useState(1);
@@ -244,7 +246,11 @@ export default function List() {
               <tr key={user.id}>
                 <td className="ls-index">{String(index + 1).padStart(2, "0")}</td>
                 <td>
-                  <div className="ls-profile">
+                  <div
+                    className="ls-profile ls-profile-clickable"
+                    onClick={() => navigate(`/order/${user.id}`, { state: user })}
+                    title="View order details"
+                  >
                     <img src={user.avatar} alt={user.name} />
                     <div>
                       <div className="ls-name">
