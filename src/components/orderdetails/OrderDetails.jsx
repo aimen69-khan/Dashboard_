@@ -1,73 +1,39 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "./OrderDetails.css";
 import { ArrowLeft, Minus, Plus, BadgeCheck, Pencil, Trash2, Check, X } from "lucide-react";
-
-const defaultCustomer = {
-  name: "Curtis",
-  email: "wiegand@hotmail.com",
-  avatar: "https://i.pravatar.cc/64?img=12",
-  country: "Saucerize",
-  verified: true,
-};
-
-const initialItems = [
-  {
-    id: "p1",
-    name: "Apple Watch Series 9",
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=200&h=200&fit=crop",
-    price: 429,
-    qty: 1,
-  },
-  {
-    id: "p2",
-    name: "Sony WH-1000XM5",
-    image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&h=200&fit=crop",
-    price: 348,
-    qty: 1,
-  },
-  {
-    id: "p3",
-    name: "MacBook Air M3",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200&h=200&fit=crop",
-    price: 1099,
-    qty: 1,
-  },
-  {
-    id: "p4",
-    name: "Samsung Galaxy Watch 6",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop",
-    price: 289,
-    qty: 1,
-  },
-];
+import { ordersData } from "../orderdata/OrderData";
 
 export default function OrderDetail() {
+  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const customer = location.state || defaultCustomer;
+  const matchedOrder = ordersData.find((o) => o.id === id);
+  const customer = location.state || matchedOrder || ordersData[0];
+  const initialItems = matchedOrder ? matchedOrder.items : ordersData[0].items;
+
   const [items, setItems] = useState(initialItems);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ name: "", price: "" });
 
-  const increment = (id) => {
+  const increment = (itemId) => {
     setItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, qty: item.qty + 1 } : item))
+      prev.map((item) => (item.id === itemId ? { ...item, qty: item.qty + 1 } : item))
     );
   };
 
-  const decrement = (id) => {
+  const decrement = (itemId) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, qty: Math.max(1, item.qty - 1) } : item
+        item.id === itemId ? { ...item, qty: Math.max(1, item.qty - 1) } : item
       )
     );
   };
 
-  const handleDelete = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-    if (editingId === id) {
+  const handleDelete = (itemId) => {
+    setItems((prev) => prev.filter((item) => item.id !== itemId));
+    if (editingId === itemId) {
       setEditingId(null);
     }
   };
@@ -82,10 +48,10 @@ export default function OrderDetail() {
     setEditForm({ name: "", price: "" });
   };
 
-  const saveEdit = (id) => {
+  const saveEdit = (itemId) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.id === id
+        item.id === itemId
           ? {
               ...item,
               name: editForm.name.trim() || item.name,
@@ -105,7 +71,7 @@ export default function OrderDetail() {
     <div className="od-page">
       <button className="od-back" onClick={() => navigate(-1)}>
         <ArrowLeft size={16} />
-        Back to List
+        Back
       </button>
 
       <div className="od-header-card">

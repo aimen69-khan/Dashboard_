@@ -5,22 +5,13 @@ import "./Sidebar.css";
 
 const mainNav = [
   { label: "Dashboard", path: "/" },
-  { label: "Products" },
-  { label: "Favorites" },
-  { label: "Inbox" },
-  { label: "Order Lists" },
-  { label: "Product Stock" },
+  { label: "Order Lists", path: "/orderlist" },
+  { label: "List", path: "/list" },
+  { label: "Saved", path: "/saved" }
 ];
 
 const pagesNav = [
-  { label: "Pricing" },
-  { label: "List", path: "/list" },
-  { label: "Saved", path: "/saved" },
-  { label: "Contact" },
-  { label: "Invoice" },
-  { label: "UI Elements" },
-  { label: "Team" },
-  { label: "Table" },
+  
 ];
 
 export default function SideBar() {
@@ -60,20 +51,6 @@ export default function SideBar() {
 
         <nav className="ds-nav">
           {mainNav.map((item) => (
-            <button
-              key={item.label}
-              className={`ds-item ${active === item.label ? "active" : ""}`}
-              onClick={() => handleClick(item)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="ds-section-label">PAGES</div>
-
-        <nav className="ds-nav">
-          {pagesNav.map((item) => (
             <button
               key={item.label}
               className={`ds-item ${active === item.label ? "active" : ""}`}

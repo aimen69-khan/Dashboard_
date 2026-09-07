@@ -7,6 +7,7 @@ import List from './pages/list/List'
 import Notfound from './pages/notfound/Notfound'
 import Saved from './pages/saved/Saved'
 import Order from './pages/order/Order'
+import OrderList from './pages/orderlist/OrderList'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/list' element={<List />} />
         <Route path='/saved' element={<Saved />} />
         <Route path='/order/:id' element={<Order />} />
+        <Route path='/orderlist' element={<OrderList />} />
       </Route>
         <Route path='*' element={<Notfound />} />
     </Routes>

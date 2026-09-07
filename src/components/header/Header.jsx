@@ -25,9 +25,9 @@ export default function Header() {
         </button>
 
         <div className="ds-profile">
-          <img src="https://i.pravatar.cc/64?img=47" alt="Moni Roy" />
+          <img src="https://i.pinimg.com/736x/e3/70/f7/e370f7451f1b9dd00ac1f0e46418b1a6.jpg" alt="GoJo" />
           <div className="ds-profile-text">
-            <div className="ds-profile-name">Moni Roy</div>
+            <div className="ds-profile-name">Ahmed Raza</div>
             <div className="ds-profile-role">Admin</div>
           </div>
         </div>
