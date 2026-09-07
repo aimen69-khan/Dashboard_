@@ -185,6 +185,119 @@
   color: #1a1d29;
 }
 
+.od-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.od-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+}
+
+.od-action-btn.edit {
+  color: #6c5dd3;
+}
+
+.od-action-btn.edit:hover {
+  background: rgba(108, 93, 211, 0.1);
+}
+
+.od-action-btn.delete {
+  color: #f0645a;
+}
+
+.od-action-btn.delete:hover {
+  background: rgba(240, 100, 90, 0.1);
+}
+
+.od-item-editing {
+  background: #faf9ff;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 4px 0;
+}
+
+.od-edit-fields {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
+.od-edit-input {
+  border: 1px solid #eef0f4;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  color: #1a1d29;
+  outline: none;
+  background: #ffffff;
+}
+
+.od-edit-input:focus {
+  border-color: #6c5dd3;
+}
+
+.od-edit-input:not(.od-edit-price) {
+  flex: 1;
+  min-width: 0;
+}
+
+.od-edit-price {
+  width: 100px;
+}
+
+.od-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.od-edit-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.od-edit-btn.confirm {
+  background: #2ecc71;
+  color: #ffffff;
+}
+
+.od-edit-btn.confirm:hover {
+  background: #27ae60;
+}
+
+.od-edit-btn.cancel {
+  background: #f5f6fa;
+  color: #6b7280;
+}
+
+.od-edit-btn.cancel:hover {
+  background: #eef0f4;
+}
+
+.od-empty {
+  text-align: center;
+  padding: 30px 0;
+  color: #b2b6c2;
+  font-size: 14px;
+}
+
 .od-summary {
   margin-top: 12px;
   padding-top: 16px;
@@ -251,6 +364,18 @@
     width: auto;
     order: 4;
     margin-left: auto;
+  }
+
+  .od-item-actions {
+    order: 5;
+  }
+
+  .od-edit-fields {
+    flex-direction: column;
+  }
+
+  .od-edit-price {
+    width: 100%;
   }
 
   .od-summary {
