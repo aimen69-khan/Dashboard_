@@ -6,7 +6,7 @@ import "./Sidebar.css";
 const mainNav = [
   { label: "Dashboard", path: "/" },
   { label: "Order Lists", path: "/orderlist" },
-  { label: "List", path: "/list" },
+  { label: "Customer", path: "/list" },
   { label: "products", path: "/product" },
   { label: "Saved", path: "/saved" }
 ];
