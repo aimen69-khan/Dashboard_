@@ -7,12 +7,10 @@ const mainNav = [
   { label: "Dashboard", path: "/" },
   { label: "Order Lists", path: "/orderlist" },
   { label: "List", path: "/list" },
+  { label: "products", path: "/product" },
   { label: "Saved", path: "/saved" }
 ];
 
-const pagesNav = [
-  
-];
 
 export default function SideBar() {
   const [active, setActive] = useState("Dashboard");
